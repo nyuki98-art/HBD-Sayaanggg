@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -108,6 +108,397 @@
   }
   .hero-title{
     font-family:'Playfair Display', serif;
+    font-weight:700;
+    font-size:clamp(2.4rem, 8vw, 5.2rem);
+    line-height:1.15;
+    color:var(--ink);
+    opacity:0; animation:fadeInUp 1.4s ease forwards 0.6s;
+  }
+  .hero-title em{
+    font-style:italic; color:var(--pink-deep);
+    background:linear-gradient(90deg,var(--pink-deep), var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{
+    margin-top:22px; font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:clamp(1.05rem,2.4vw,1.4rem); color:var(--ink-soft); max-width:520px;
+    opacity:0; animation:fadeInUp 1.4s ease forwards 1s;
+  }
+  .hero-scroll{
+    margin-top:48px; opacity:0; animation:fadeInUp 1.4s ease forwards 1.4s, bob 2.4s ease-in-out infinite 1.4s;
+    font-size:0.7rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .hero-scroll span{display:block; margin-top:8px; font-size:1.1rem;}
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  /* ===== GENERIC SECTION ===== */
+  section{
+    position:relative; z-index:2;
+    max-width:980px; margin:0 auto;
+    padding:90px 24px;
+  }
+  .section-title{
+    font-family:'Playfair Display', serif;
+    font-weight:600; font-size:clamp(1.9rem,5vw,3rem);
+    text-align:center; margin-bottom:14px; color:var(--ink);
+  }
+  .section-title .accent{ color:var(--pink-deep); font-style:italic; }
+  .section-divider{
+    width:60px; height:1px; background:var(--gold); margin:0 auto 50px; opacity:0.6;
+  }
+  .reveal{
+    opacity:0; transform:translateY(36px);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+
+  /* ===== MUSIC PLAYER ===== */
+  #music-toggle{
+    position:fixed; top:22px; right:22px; z-index:50;
+    width:54px; height:54px; border-radius:50%;
+    background:rgba(255,255,255,0.75); backdrop-filter:blur(8px);
+    border:1px solid rgba(212,175,106,0.4);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:0 6px 20px rgba(232,164,187,0.35);
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  #music-toggle:hover{ transform:scale(1.08); box-shadow:0 8px 26px rgba(232,164,187,0.5); }
+  #music-toggle svg{ width:22px; height:22px; fill:var(--pink-deep); }
+  #music-toggle.playing{ animation:musicSpin 6s linear infinite; }
+  @keyframes musicSpin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  .music-label{
+    position:fixed; top:80px; right:22px; z-index:50;
+    font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--ink-soft); background:rgba(255,255,255,0.6); padding:4px 10px;
+    border-radius:20px; backdrop-filter:blur(6px);
+  }
+
+  /* ===== GALLERY SLIDER ===== */
+  .slider{
+    position:relative; width:100%; max-width:560px; margin:0 auto;
+    border-radius:24px; overflow:hidden;
+    box-shadow:0 20px 60px rgba(232,164,187,0.35), 0 0 0 8px #fff, 0 0 0 9px var(--gold-light);
+    aspect-ratio:4/5; background:linear-gradient(135deg,var(--pink-pastel),var(--gold-light));
+  }
+  .slide{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; text-align:center; padding:30px;
+    opacity:0; transition:opacity 1.1s ease;
+    font-family:'Cormorant Garamond', serif;
+  }
+  .slide.active{ opacity:1; }
+  .slide img{
+    width:100%; height:100%; object-fit:cover; position:absolute; inset:0;
+  }
+  .slide-caption{
+    position:absolute; bottom:0; left:0; right:0;
+    padding:28px 24px 22px; text-align:center;
+    background:linear-gradient(180deg, transparent, rgba(90,61,68,0.55));
+    color:#fff; font-style:italic; font-size:1.15rem;
+  }
+  .slide-placeholder{
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:10px; color:var(--ink-soft);
+    font-family:'Poppins',sans-serif; font-size:0.8rem; text-align:center; padding:30px;
+  }
+  .slide-placeholder .ph-icon{ font-size:2.6rem; }
+  .slider-dots{ display:flex; justify-content:center; gap:10px; margin-top:22px; }
+  .dot{
+    width:9px; height:9px; border-radius:50%; background:var(--pink-pastel);
+    border:1px solid var(--pink-deep); cursor:pointer; transition:all 0.3s ease;
+  }
+  .dot.active{ background:var(--pink-deep); transform:scale(1.25); }
+  .slider-nav{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+    width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(6px); border:none; cursor:pointer; font-size:1.1rem;
+    color:var(--ink); display:flex; align-items:center; justify-content:center;
+    transition:background 0.3s ease;
+  }
+  .slider-nav:hover{ background:rgba(255,255,255,0.85); }
+  .slider-nav.prev{ left:14px; } .slider-nav.next{ right:14px; }
+
+  /* ===== LOVE LETTER ===== */
+  .letter-wrap{
+    perspective:1600px;
+  }
+  .letter{
+    background:#fffdf8;
+    background-image:
+      linear-gradient(rgba(232,164,187,0.05) 1px, transparent 1px);
+    background-size:100% 38px;
+    border-radius:6px;
+    padding:48px 38px;
+    box-shadow:0 24px 60px rgba(212,175,106,0.25), 0 0 0 1px var(--gold-light);
+    position:relative;
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.18rem;
+    line-height:1.9;
+    color:var(--ink);
+    max-width:640px; margin:0 auto;
+  }
+  .letter::before{
+    content:"❀";
+    position:absolute; top:-20px; left:50%; transform:translateX(-50%);
+    width:42px; height:42px; border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--pink-deep));
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem; box-shadow:0 6px 18px rgba(212,175,106,0.4);
+  }
+  .letter-greeting{
+    font-weight:600; font-size:1.4rem; margin-bottom:14px; color:var(--pink-deep);
+  }
+  .letter-body{ margin-bottom:18px; }
+  .letter-signature{
+    text-align:right; font-style:italic; font-size:1.25rem; margin-top:24px; color:var(--gold);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline{
+    position:relative; max-width:680px; margin:0 auto; padding-left:0;
+  }
+  .timeline::before{
+    content:""; position:absolute; left:18px; top:8px; bottom:8px; width:2px;
+    background:linear-gradient(180deg,var(--gold-light), var(--pink-deep), var(--gold-light));
+  }
+  .timeline-item{
+    position:relative; padding-left:54px; margin-bottom:42px;
+  }
+  .timeline-item:last-child{ margin-bottom:0; }
+  .timeline-item::before{
+    content:""; position:absolute; left:9px; top:4px; width:18px; height:18px;
+    border-radius:50%; background:#fff; border:3px solid var(--pink-deep);
+    box-shadow:0 0 0 4px var(--pink-soft);
+  }
+  .timeline-date{
+    font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);
+    font-weight:500; margin-bottom:6px;
+  }
+  .timeline-title{
+    font-family:'Playfair Display', serif; font-size:1.25rem; margin-bottom:6px; color:var(--ink);
+  }
+  .timeline-text{ color:var(--ink-soft); font-size:0.95rem; line-height:1.7; }
+
+  /* ===== REASONS CARDS ===== */
+  .reasons-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;
+  }
+  .reason-card{
+    background:#fff; border-radius:18px; padding:0;
+    box-shadow:0 10px 30px rgba(232,164,187,0.25);
+    cursor:pointer; min-height:150px; position:relative; overflow:hidden;
+    border:1px solid var(--gold-light);
+    transition:transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .reason-card:hover{ transform:translateY(-4px); box-shadow:0 16px 36px rgba(232,164,187,0.4); }
+  .reason-front, .reason-back{
+    padding:26px 22px; display:flex; align-items:center; justify-content:center;
+    text-align:center; min-height:150px; transition:opacity 0.45s ease, transform 0.45s ease;
+  }
+  .reason-front{
+    flex-direction:column; gap:10px;
+    font-family:'Playfair Display', serif; font-size:1.05rem; color:var(--ink);
+  }
+  .reason-front .reason-num{
+    font-size:0.7rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase;
+  }
+  .reason-back{
+    position:absolute; inset:0; opacity:0; transform:scale(0.92);
+    background:linear-gradient(135deg,var(--pink-pastel), var(--gold-light));
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.05rem;
+    color:var(--ink); line-height:1.6;
+  }
+  .reason-card.flipped .reason-front{ opacity:0; transform:scale(0.92); }
+  .reason-card.flipped .reason-back{ opacity:1; transform:scale(1); }
+  .reason-card.flipped .reason-front{ position:absolute; inset:0; }
+
+  /* ===== MEMORY GALLERY ===== */
+  .memory-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;
+  }
+  .memory-item{
+    aspect-ratio:1; border-radius:14px; overflow:hidden; position:relative;
+    background:linear-gradient(135deg,var(--pink-pastel),var(--gold-light));
+    box-shadow:0 8px 20px rgba(232,164,187,0.25);
+  }
+  .memory-item img{ width:100%; height:100%; object-fit:cover; }
+  .memory-placeholder{
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:4px; color:var(--ink-soft); font-size:0.65rem; text-align:center; padding:10px;
+  }
+  .memory-placeholder .ph-icon{ font-size:1.6rem; }
+
+  /* ===== MESSAGE SECTION ===== */
+  .message-box{
+    text-align:center; max-width:680px; margin:0 auto;
+  }
+  .message-text{
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:clamp(1.1rem,2.6vw,1.45rem); line-height:1.9; color:var(--ink);
+  }
+
+  /* ===== INTERACTIVE BUTTON ===== */
+  .btn-love-wrap{ text-align:center; margin-top:40px; }
+  .btn-love{
+    font-family:'Poppins',sans-serif; font-weight:500; font-size:1rem;
+    padding:18px 42px; border-radius:50px; border:none; cursor:pointer;
+    background:linear-gradient(135deg,var(--pink-deep), var(--gold));
+    color:#fff; letter-spacing:0.05em;
+    box-shadow:0 12px 30px rgba(232,164,187,0.45);
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-love:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 16px 40px rgba(232,164,187,0.6); }
+  .btn-love:active{ transform:scale(0.97); }
+  .reply-message{
+    margin-top:24px; font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:1.25rem; color:var(--pink-deep);
+    opacity:0; transform:translateY(10px); transition:all 0.6s ease;
+  }
+  .reply-message.show{ opacity:1; transform:translateY(0); }
+
+  /* ===== FOOTER ===== */
+  .footer{
+    text-align:center; padding:90px 24px 60px;
+  }
+  .footer-title{
+    font-family:'Playfair Display', serif; font-weight:700;
+    font-size:clamp(2rem,6vw,3.4rem); color:var(--ink); margin-bottom:14px;
+  }
+  .footer-title em{
+    font-style:italic; background:linear-gradient(90deg,var(--pink-deep), var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .footer-name{
+    font-family:'Cormorant Garamond', serif; font-size:1.4rem; letter-spacing:0.05em;
+    color:var(--gold); margin-bottom:8px;
+  }
+  .footer-tag{
+    font-size:0.7rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .footer-heart{ margin-top:26px; font-size:1.6rem; animation:loaderPulse 1.6s ease-in-out infinite; }
+
+  /* ===== CONFETTI ===== */
+  #confetti-canvas{
+    position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:200;
+  }
+
+  @media (max-width:600px){
+    section{ padding:64px 18px; }
+    .letter{ padding:34px 22px; }
+    .timeline::before{ left:14px; }
+    .timeline-item{ padding-left:42px; }
+    .timeline-item::before{ left:5px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="loader-heart"></div>
+  <div class="loader-text">A special surprise just for you...</div>
+  <div class="loader-sub">Please wait a moment</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<!-- BACKGROUND CANVASES -->
+<canvas id="bg-particles"></canvas>
+<canvas id="falling-hearts"></canvas>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- MUSIC TOGGLE -->
+<button id="music-toggle" aria-label="Play music">
+  <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+</button>
+<div class="music-label" id="music-label">Play Music</div>
+<audio id="bg-audio" loop preload="none">
+  <!-- Replace the src below with your chosen romantic music file, e.g.: <source src="music.mp3" type="audio/mpeg"> -->
+</audio>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-eyebrow">June 13 — Andhien's Special Day</div>
+  <h1 class="hero-title">Happy Birthday <em>My Love</em> ❤️</h1>
+  <p class="hero-sub">Every year with you is a gift. Today, let me celebrate you with all my heart.</p>
+  <div class="hero-scroll">Scroll Down<span>↓</span></div>
+</div>
+
+<!-- GALLERY SLIDER -->
+<section id="gallery">
+  <h2 class="section-title reveal">Our <span class="accent">Gallery</span></h2>
+  <div class="section-divider reveal"></div>
+  <div class="slider reveal" id="slider">
+    <div class="slide active">
+      <div class="slide-placeholder">
+        <div class="ph-icon">📷</div>
+        <div>Replace with a photo of you both<br><small>(slide-1)</small></div>
+      </div>
+      <div class="slide-caption">Where it all began</div>
+    </div>
+    <div class="slide">
+      <div class="slide-placeholder">
+        <div class="ph-icon">📷</div>
+        <div>Replace with a photo of you both<br><small>(slide-2)</small></div>
+      </div>
+      <div class="slide-caption">Days full of laughter</div>
+    </div>
+    <div class="slide">
+      <div class="slide-placeholder">
+        <div class="ph-icon">📷</div>
+        <div>Replace with a photo of you both<br><small>(slide-3)</small></div>
+      </div>
+      <div class="slide-caption">Always together, no matter what</div>
+    </div>
+    <button class="slider-nav prev" onclick="changeSlide(-1)">‹</button>
+    <button class="slider-nav next" onclick="changeSlide(1)">›</button>
+  </div>
+  <div class="slider-dots" id="slider-dots"></div>
+</section>
+
+<!-- LOVE LETTER -->
+<section id="letter">
+  <h2 class="section-title reveal">A Love <span class="accent">Letter</span></h2>
+  <div class="section-divider reveal"></div>
+  <div class="letter-wrap reveal">
+    <div class="letter">
+      <div class="letter-greeting">My dearest Andhien,</div>
+      <div class="letter-body">
+        On this special day, I want you to know how much you mean to my life. Every moment with you is a memory I hold close — our laughter, our long conversations, even the comfortable silences when it's just the two of us.
+      </div>
+      <div class="letter-body">
+        You are the home I always long to return to. Thank you for being exactly who you are — warm, strong, and full of love.
+      </div>
+      <div class="letter-body">
+        I hope this new year of your life brings all your dreams a little closer to reality, and I hope to stay right by your side to witness it all.
+      </div>
+      <div class="letter-signature">With love, always — Me</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <h2 class="section-title reveal">Our <span class="accent">Journey</span></h2>
+  <div class="section-divider reveal"></div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-date">The Beginning</div>
+      <div class="timeline-title">Our First Meeting</div>
+      <div class="timeline-text">I never imagined that one simple meeting would bring us this far.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">The Next Step</div>
+      <div class="timeline-title">Getting to Know Each Other</div>
+      <div class="timeline-text">Conversation by conversation, we grew more comfortable with each other — and I became more certain you were special.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">A Defining Moment</div>
+      <div class="timeline-title">Officially Together</div>
+         font-family:'Playfair Display', serif;
     font-weight:700;
     font-size:clamp(2.4rem, 8vw, 5.2rem);
     line-height:1.15;
